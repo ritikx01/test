@@ -1,4 +1,4 @@
-<h3 align="center">Seeking an opportunity in the field of software engineering. Good knowledge of Python, Linux, Django. Ability to implement a full software development life cycle (SDLC) and analyze the performance of programs to correct deficiencies.</h3>
+### Seeking an opportunity in the field of software engineering. Good knowledge of Python, Linux, Django. Ability to implement a full software development life cycle (SDLC) and analyze the performance of programs to correct deficiencies.
 
 
 <div align="center"> 
