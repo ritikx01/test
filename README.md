@@ -1,3 +1,6 @@
+<h3 align="center">Seeking an opportunity in the field of software engineering. Good knowledge of Python, Linux, Django. Ability to implement a full software development life cycle (SDLC) and analyze the performance of programs to correct deficiencies.</h3>
+
+
 <div align="center"> 
   <a href="https://linkedin.com/in/ritikx01" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" /></a>
   <a href="https://twitter.com/wh15k3yTF"><img src="https://img.shields.io/badge/X-333333?style=for-the-badge&logo=X&logoColor=white" /></a>
