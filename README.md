@@ -17,7 +17,7 @@
   <a href="https://in.linkedin.com/in/kushal-tanna-870ba7215" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
  
 </div>
-
+```mermaid
 graph LR
     subgraph External Services
         subgraph BinanceAPI[Binance API]
@@ -72,3 +72,4 @@ graph LR
     style RTV stroke-dasharray: 5 5, fill:#f9f,stroke:#333,stroke-width:2px;
     style PGDB stroke-dasharray: 5 5, fill:#ccf,stroke:#333,stroke-width:2px;
     style OldVal stroke-dasharray: 5 5, fill:#f9f,stroke:#333,stroke-width:2px;
+```
