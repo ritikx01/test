@@ -17,3 +17,58 @@
   <a href="https://in.linkedin.com/in/kushal-tanna-870ba7215" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
  
 </div>
+
+graph LR
+    subgraph External Services
+        subgraph BinanceAPI[Binance API]
+            direction LR
+            B_REST[REST API<br>/fapi/v1/exchangeInfo<br>/fapi/v1/klines<br>/fapi/v1/aggTrades]
+            B_WS[WebSocket API<br>wss://fstream.binance.com/ws]
+        end
+        DiscordWebhook[Discord Webhook]
+    end
+
+    subgraph Core Application
+        AppInit("App Initialization") --> MDM("Market Data Manager");
+        MDM -->|Requests Data For Pair/Interval| DataAcq("Data Acquisition Service");
+
+        DataAcq -- Request History --> B_REST;
+        B_REST -- Historical Klines --> DataAcq;
+        DataAcq -- Request Symbols --> B_REST;
+        B_REST -- Active Trading Pairs --> DataAcq;
+
+        DataAcq -- Connect & Subscribe --> B_WS;
+        B_WS -- Real-time Klines Stream --> DataAcq;
+
+        DataAcq -->|Raw Market Data| MDM;
+        MDM -- Holds --> Store(["Global In-Memory<br>Market Data<br>(Prices, Volumes, EMA, Median)"]);
+        MDM -->|New Candle Data| AlgoMgr("Algorithm Manager");
+
+        AlgoMgr -->|Evaluate Strategies<br>(Volume Spike, Above EMA)| AlgoMgr;
+        AlgoMgr -->|Signal Candidate<br>(Pair/Interval)| RTV("Realtime Signal Validator (WIP)");
+    end
+
+    subgraph Validation and Persistence (WIP)
+       direction TB
+       PGDB[("Postgres DB (WIP)")]
+       OldVal("Old Signal Validator (WIP)");
+       RTV -->|Validate Signal Using DB?| PGDB;
+       PGDB -->|Historical/Reference Data?| RTV;
+       RTV -->|Update Validated Signals| PGDB;
+       RTV -->|Info for Old Validation?| OldVal;
+       PGDB -->|Data for Old Validation?| OldVal;
+    end
+
+    subgraph Outputs
+       direction TB
+       Broadcast("Broadcast Service (WS)");
+       Notifier("Discord Notifier");
+       RTV -->|Validated Signal| Broadcast;
+       RTV -->|Validated Signal| Notifier;
+       Notifier -->|Send Notification| DiscordWebhook;
+    end
+
+    %% Styling for WIP components
+    style RTV stroke-dasharray: 5 5, fill:#f9f,stroke:#333,stroke-width:2px;
+    style PGDB stroke-dasharray: 5 5, fill:#ccf,stroke:#333,stroke-width:2px;
+    style OldVal stroke-dasharray: 5 5, fill:#f9f,stroke:#333,stroke-width:2px;
